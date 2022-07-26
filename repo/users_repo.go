@@ -4,22 +4,17 @@ import (
 	"car-rentals-backend/model"
 	"car-rentals-backend/util"
 	"errors"
-	"fmt"
-	"os"
 	"time"
 )
 
-func GetAllUser() (users interface{}, err error) {
-	fmt.Println(os.Getenv("POSTGRES_USER"))
-	fmt.Println(os.Getenv("POSTGRES_PASSWORD"))
-	fmt.Println(os.Getenv("POSTGRES_DB"))
-	// err = DB.Model(&users).Select()
+func GetAllUser() (users []model.User, err error) {
+	err = DB.Model(&users).Select()
 
 	if err != nil {
 		return nil, err
 	}
 
-	return os.Getenv("POSTGRES_USER"), nil
+	return users, nil
 }
 
 func GetUserById(id string) (user *model.User, err error) {

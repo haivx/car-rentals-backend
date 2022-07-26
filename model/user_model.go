@@ -5,7 +5,6 @@ import (
 )
 
 type User struct {
-	tableName struct{}  `pg:"test.users"`
 	Id        string    `pg:"id,pk" json:"id"`
 	FullName  string    `json:"full_name"`
 	Email     string    `json:"email"`

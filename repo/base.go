@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/go-pg/pg/v10"
+	"github.com/spf13/viper"
 	"math/rand"
-	"os"
 	"time"
 )
 
@@ -15,15 +15,16 @@ var (
 )
 
 func ConnectDatabase() *pg.DB {
+	DBHOST, _ := viper.Get("DB.HOST").(string)
+	DBPORT, _ := viper.Get("DB.PORT").(string)
+	USERNAME, _ := viper.Get("DB.USERNAME").(string)
+	PASSWORD, _ := viper.Get("DB.PASSWORD").(string)
+	DBNAME, _ := viper.Get("DB.NAME").(string)
 	DB = pg.Connect(&pg.Options{
-		// Addr:     "localhost:5432",
-		// User:     "postgres",
-		// Password: "123",
-		// Database: "postgres",
-		Addr:     "localhost:5432",
-		User:     os.Getenv("POSTGRES_USER"),
-		Password: os.Getenv("POSTGRES_PASSWORD"),
-		Database: os.Getenv("POSTGRES_DB"),
+		Addr:     DBHOST + ":" + DBPORT,
+		User:     USERNAME,
+		Password: PASSWORD,
+		Database: DBNAME,
 	})
 
 	DB.AddQueryHook(dbLogger{}) //Log query to console

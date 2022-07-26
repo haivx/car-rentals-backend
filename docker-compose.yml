@@ -13,10 +13,10 @@ services:
       - ./data/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  api:
-    build:
-      dockerfile: Dockerfile
-      context: .
-      target: dev
-    volumes:
-      - .:/opt/app/api
+  # api:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: .
+  #     target: dev
+  #   volumes:
+  #     - .:/opt/app/api
