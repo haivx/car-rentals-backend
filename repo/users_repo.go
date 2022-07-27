@@ -30,12 +30,12 @@ func GetUserById(id string) (user *model.User, err error) {
 	return user, nil
 }
 
-func CreateUser(req *model.CreateUser) (post *model.CreateUser, err error) {
+func CreateUser(req *model.CreateUser) (user *model.User, err error) {
 	if req.FullName == "" || req.Phone == "" || req.Email == "" {
-		return nil, errors.New("Must not empty")
+		return nil, errors.New("must not empty")
 	}
 
-	user := &model.User{
+	user = &model.User{
 		Id:        util.NewID(),
 		FullName:  req.FullName,
 		Email:     req.Email,
@@ -48,5 +48,7 @@ func CreateUser(req *model.CreateUser) (post *model.CreateUser, err error) {
 		return nil, err
 	}
 
-	return req, nil
+	token := "3432"
+	user.Token = token
+	return user, nil
 }
