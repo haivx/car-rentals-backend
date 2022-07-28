@@ -6,17 +6,18 @@ import (
 
 type User struct {
 	Id        string    `pg:"id,pk" json:"id"`
-	FullName  string    `json:"full_name"`
+	Username  string    `json:"username"`
 	Email     string    `json:"email"`
 	Phone     string    `json:"phone"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
-	Password  string    `json:"password"`
-	Token     string    `json:"token"`
+	Password  string    `json:"-"`
+	Token     string    `json:"-"` // @TODO: need to remove
 }
 
 type CreateUser struct {
-	FullName string `json:"full_name"`
+	Username string `json:"username"`
 	Email    string `json:"email"`
 	Phone    string `json:"phone"`
+	Password string `json:"password"`
 }

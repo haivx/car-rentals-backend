@@ -1,6 +1,7 @@
 package services
 
 import (
+	"car-rentals-backend/model"
 	"errors"
 	"time"
 
@@ -9,11 +10,13 @@ import (
 
 var hmacSampleSecret []byte
 
-func GenerateToken() (string, error) {
+func GenerateToken(userInfo *model.User) (string, error) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"foo": "bar",
-		"nbf": time.Date(2015, 10, 10, 12, 0, 0, 0, time.UTC).Unix(),
+		"id":       userInfo.Id,
+		"username": userInfo.Username,
+		"email":    userInfo.Email,
+		"nbf":      time.Now().Add(time.Hour * 24 * 10).Unix(),
 	})
 
 	// Sign and get the complete encoded token as a string using the secret
@@ -38,5 +41,4 @@ func ValidateToken(tokenString string) (interface{}, error) {
 	} else {
 		return nil, err
 	}
-
 }

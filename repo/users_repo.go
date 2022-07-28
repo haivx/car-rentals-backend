@@ -30,17 +30,30 @@ func GetUserById(id string) (user *model.User, err error) {
 	return user, nil
 }
 
+func GetUserByUserName(username string) (user *model.User, err error) {
+	user = &model.User{
+		Username: username,
+	}
+	err = DB.Model(user).Where("username = ?", username).Select()
+	if err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}
+
 func CreateUser(req *model.CreateUser) (user *model.User, err error) {
-	if req.FullName == "" || req.Phone == "" || req.Email == "" {
+	if req.Username == "" || req.Phone == "" || req.Email == "" {
 		return nil, errors.New("must not empty")
 	}
 
 	user = &model.User{
 		Id:        util.NewID(),
-		FullName:  req.FullName,
+		Username:  req.Username,
 		Email:     req.Email,
 		Phone:     req.Phone,
 		CreatedAt: time.Now(),
+		Password:  req.Password,
 	}
 	_, err = DB.Model(user).WherePK().Returning("*").Insert()
 
@@ -48,7 +61,5 @@ func CreateUser(req *model.CreateUser) (user *model.User, err error) {
 		return nil, err
 	}
 
-	token := "3432"
-	user.Token = token
 	return user, nil
 }

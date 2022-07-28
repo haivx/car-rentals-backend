@@ -1,11 +1,13 @@
 DROP TABLE IF EXISTS users
 CREATE TABLE users (
 	id text PRIMARY KEY,
-	full_name text,
+	username text,
 	email text,
 	phone text,
-    created_at TIMESTAMP with time zone,
-    updated_at TIMESTAMP with time zone
+	password text,
+	token text,
+  created_at TIMESTAMP with time zone,
+  updated_at TIMESTAMP with time zone
 )
 
 DROP TABLE IF EXISTS news

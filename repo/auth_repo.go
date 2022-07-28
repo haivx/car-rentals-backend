@@ -2,24 +2,29 @@ package repo
 
 import (
 	"car-rentals-backend/model"
+	"car-rentals-backend/services"
 	"car-rentals-backend/util"
 	"errors"
 	"time"
 )
 
-func Login(req *model.Login) (post *model.Login, err error) {
+func Login(req *model.User) (user *model.User, err error) {
 	if req.Username == "" || req.Password == "" {
 		return nil, errors.New("tiêu đề không được để trống")
 	}
+
+	token, err := services.GenerateToken(req)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return req, nil
+	req.Token = token
+
+	return req, err
 }
 
-func Register(req *model.Register) (user *model.User, err error) {
+func Register(req *model.CreateUser) (user *model.User, err error) {
 	if req.Email == "" || req.Password == "" || req.Username == "" {
 		return nil, errors.New("data must not empty")
 	}
