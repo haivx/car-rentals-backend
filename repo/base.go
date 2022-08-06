@@ -1,12 +1,14 @@
 package repo
 
 import (
+	"car-rentals-backend/config"
 	"context"
 	"fmt"
-	"github.com/go-pg/pg/v10"
-	"github.com/spf13/viper"
+	"log"
 	"math/rand"
 	"time"
+
+	"github.com/go-pg/pg/v10"
 )
 
 var (
@@ -15,16 +17,17 @@ var (
 )
 
 func ConnectDatabase() *pg.DB {
-	DBHOST, _ := viper.Get("DB.HOST").(string)
-	DBPORT, _ := viper.Get("DB.PORT").(string)
-	USERNAME, _ := viper.Get("DB.USERNAME").(string)
-	PASSWORD, _ := viper.Get("DB.PASSWORD").(string)
-	DBNAME, _ := viper.Get("DB.NAME").(string)
+
+	config, err := config.LoadConfig("../config.yaml")
+	if err != nil {
+		log.Fatal("Can not load config file: ", err)
+	}
+
 	DB = pg.Connect(&pg.Options{
-		Addr:     DBHOST + ":" + DBPORT,
-		User:     USERNAME,
-		Password: PASSWORD,
-		Database: DBNAME,
+		Addr:     config.HOST + ":" + config.PORT,
+		User:     config.USERNAME,
+		Password: config.PASSWORD,
+		Database: config.DATABASE_NAME,
 	})
 
 	DB.AddQueryHook(dbLogger{}) //Log query to console

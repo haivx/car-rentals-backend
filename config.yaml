@@ -1,6 +1,5 @@
-DB:
-  HOST: "localhost"
-  PORT: "5432"
-  USERNAME: "postgres"
-  PASSWORD: "123"
-  NAME: "carentals"
+HOST: "localhost"
+PORT: "5432"
+USERNAME: "postgres"
+PASSWORD: "123"
+DATABASE_NAME: "carentals"
