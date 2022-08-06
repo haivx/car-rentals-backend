@@ -1,9 +1,21 @@
 FROM golang:1.18-alpine as base
 
-FROM base as dev
+FROM base as builder
 
-RUN curl -sSfL https://raw.githubusercontent.com/cosmtrek/air/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
+WORKDIR /app
 
-WORKDIR /opt/app/api
+COPY . .
 
-CMD ["air"]
+RUN go build -o main main.go
+
+
+FROM alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/main .
+COPY config.yaml .
+
+EXPOSE 8080
+
+CMD [ "/app/main" ]

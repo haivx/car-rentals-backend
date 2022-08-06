@@ -8,6 +8,9 @@ import (
 )
 
 func GetAllUser() (users []model.User, err error) {
+	if users == nil {
+		return nil, nil
+	}
 	err = DB.Model(&users).Select()
 
 	if err != nil {

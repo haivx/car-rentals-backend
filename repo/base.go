@@ -18,17 +18,17 @@ var (
 
 func ConnectDatabase() *pg.DB {
 
-	config, err := config.LoadConfig("../config.yaml")
+	config, err := config.LoadConfig(".")
 	if err != nil {
 		log.Fatal("Can not load config file: ", err)
 	}
+	opt, err := pg.ParseURL(config.DB_SOURCE)
+	if err != nil {
+		// panic(err)
+		log.Fatal("ERR connect DB: ", err)
+	}
 
-	DB = pg.Connect(&pg.Options{
-		Addr:     config.HOST + ":" + config.PORT,
-		User:     config.USERNAME,
-		Password: config.PASSWORD,
-		Database: config.DATABASE_NAME,
-	})
+	DB := pg.Connect(opt)
 
 	DB.AddQueryHook(dbLogger{}) //Log query to console
 

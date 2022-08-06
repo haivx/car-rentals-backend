@@ -1,22 +1,17 @@
 version: "3"
 
 services:
-  db:
-    image: postgres:14-alpine
-    restart: unless-stopped
+  postgres:
+    image: postgres:12-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "123"
-      PGDATA: /data/postgres
-      POSTGRES_DB: carentals
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=car_rentals
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
-  # api:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: .
-  #     target: dev
-  #   volumes:
-  #     - .:/opt/app/api
+      - "8080:8080"
+    environment:
+      - DB_SOURCE=postgres://root:secret@postgres:5432/car_rentals?sslmode=disable
