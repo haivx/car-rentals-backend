@@ -7,7 +7,7 @@
 ├── controller     -> các hàm xử lý với API
 ├── services       -> các hàm xử lý logic theo chức năng riêng
 ├── util           -> các hàm xử lý logic chung
-├── ddl            -> chứa các câu lệnh DDL để tạo bảng
+├── db             -> Chứa logic thao tác với database
 ├── go.mod
 ├── go.sum
 ├── main.go        -> File chạy chính
@@ -15,7 +15,5 @@
 ├── repo           -> Chứa hàm thao tác với cơ sở dữ liệu
 ├── router         -> Định nghĩa các router
 ├── test           -> Viết các hàm unit test để kiểm tra repo
-├── test_post.rest -> Kiểm thử API post
-├── test_user.rest -> Kiểm thử API user
 └── tmp
 ```
