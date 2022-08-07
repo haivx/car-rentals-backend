@@ -15,5 +15,7 @@
 ├── repo           -> Chứa hàm thao tác với cơ sở dữ liệu
 ├── router         -> Định nghĩa các router
 ├── test           -> Viết các hàm unit test để kiểm tra repo
+├── config         -> Viết các hàm config
+├── config         -> Viết các script khởi tạo application
 └── tmp
 ```
