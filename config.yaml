@@ -1,1 +1,1 @@
-DB_SOURCE: "postgres://root:secret@postgres:5432/car_rental?sslmode=disable"
+DB_SOURCE: "postgresql://root:0yU0uRlWY6RNLj9vukvP@rental-car.cjvnnidpz82k.us-east-1.rds.amazonaws.com:5432/rentalcar?sslmode=disable"
